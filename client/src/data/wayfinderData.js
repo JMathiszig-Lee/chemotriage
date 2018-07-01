@@ -1,163 +1,111 @@
-/* 
+/*
 This is the content for the Wayfinder questions and answer options.
-
-The user's responses are logged via the options.goto value in Wayfinder.state.usersPath. 
-
-Every options.goto value must be UNIQUE. When ammending the data, please keep this in mind. The wayfinderData.test will throw an error if there are any resulting errors. 
-
+The user's responses are logged via the options.goto value in Wayfinder.state.usersPath.
+Every options.goto value must be UNIQUE. When ammending the data, please keep this in mind. The wayfinderData.test will throw an error if there are any resulting errors.
 Every unique result ending in a FORM component must have a unique 'complete-form' goto.value (ie 'complete-form2', 'complete-form3' etc.)
-
 Stubs with no further questions are marked as 'leaf' (In the flow chart tree, a leaf is a stub that has no possible further branches.)
 */
-
-const formMsg =
-  'If you require further advice and support, please complete the form below and we will contact you within 3 working days.';
-
 const wayfinder = {
   start: {
-    question: 'Are you a grandparent?',
+    question: 'Are you experiencing any chest pain?',
     options: [
-      { answer: 'yes', goto: 'live-with' },
-      { answer: 'no', goto: 'close-fam' }
+      { answer: 'yes', goto: 'emergency-message' },
+      { answer: 'no', goto: 'temperature-question' }
     ]
   },
-  'live-with': {
-    question: 'Does a grandchild live with you?',
+  'temperature-question': {
+    question: 'Do you have a temperature above 37.5 degrees Celcius?',
     options: [
-      { answer: 'yes', goto: 'kc-rights' },
-      { answer: 'no', goto: 'lost-contact' }
+      { answer: 'yes', goto: 'emergency-message' },
+      { answer: 'no', goto: 'infection-question' }
     ]
   },
-  'kc-rights': {
-    question:
-      'Based on your answers, it looks like you might be a kinship carer. \n Do you need help understanding your rights as a kinship carer?',
+  'infection-question': {
+    question: 'Do you have any signs of infection? These include a cough, shivering, or pain when passing urine',
     options: [
-      { answer: 'yes', goto: 'need-advice' },
-      { answer: 'no', goto: 'info-kc' }
+      { answer: 'yes', goto: 'otherwise-well-question' },
+      { answer: 'no', goto: 'severe-grid' }
     ]
   },
-  'need-advice': {
-    question:
-      'If you need advice, our team can help. Please answer a few questions to help us understand your situation and get in touch with you.',
-    options: [{ answer: 'continue', goto: 'legal-order' }]
-  },
-  'close-fam': {
-    question:
-      "Are you a close family member or friend who is looking after someone else's child?",
+  'otherwise-well-question': {
+    question: 'Make sure to monitor your temperature regularly. Do you feel otherwise well?',
     options: [
-      { answer: 'yes', goto: 'kc-rights' },
-      { answer: 'no', goto: 'info-gen' }
+      { answer: 'yes', goto: 'severe-grid' },
+      { answer: 'no', goto: 'emergency-message' }
     ]
   },
-  'lost-contact': {
-    question: 'Have you lost contact with your grandchild?',
+  'severe-grid': {
+    question: 'Have you experienced any of the following symptoms: shortness of breath, rash, bleeding, or problems with mobility?',
     options: [
-      { answer: 'yes', goto: 'info-lost-contact' },
-      { answer: 'no', goto: 'info-gen' }
+      { answer: 'yes', goto: 'call-message' },
+      { answer: 'no', goto: 'diarrhoea-question' }
     ]
   },
-  'info-gen': {
-    result: `More information about `,
-    linkText: `our services.`,
-    link: `https://www.grandparentsplus.org.uk/Pages/Category/advice-and-information`,
+  'diarrhoea-question': {
+    question: 'Have you had more than four episodes of diarrhoea in the last 24 hours?',
+    options: [
+      { answer: 'yes', goto: 'call-message' },
+      { answer: 'no', goto: 'diarrhoea-message' }
+    ]
+  },
+  'diarrhoea-message': {
+    question: 'Keep hydrated by drinking plenty of fluids. If you\'ve previously been advised to take antidiarrhoeal medication, please do so\
+    If you have been on immunotherapy, please call your healthcare team for advice. If your symptoms evolve, please call your healthcare team for advice.',
+    options: [
+      { answer: 'OK', goto: 'eating-question' },
+    ]
+  },
+  'eating-question': {
+    question: 'Are you unable to eat or had more than 1 episode of vomiting in the last 24 hours?',
+    options: [
+      { answer: 'yes', goto: 'call-message' },
+      { answer: 'no', goto: 'eating-message' }
+    ]
+  },
+  'eating-message': {
+    question: 'Ensure you are taking your anti-sickness drugs regularly, and that you are drinking plenty of fluids',
+    options: [
+      { answer: 'OK', goto: 'constipation-question' },
+    ]
+  },
+  'constipation-question': {
+    question: 'Have you had stomach pain, and passed NO stool in the last 48 hours?',
+    options: [
+      { answer: 'yes', goto: 'call-message' },
+      { answer: 'no', goto: 'constipation-advice' }
+    ]
+  },
+  'constipation-advice': {
+    question: 'Increase fluid intake and take a laxative if you\'ve been prescribed one',
+    options: [
+      { answer: 'OK', goto: 'pain-question' },
+    ]
+  },
+  'pain-question': {
+    question: 'Have you had pain that interferes with your normal activities?',
+    options: [
+      { answer: 'yes', goto: 'call-message' },
+      { answer: 'no', goto: 'pain-advice' }
+    ]
+  },
+  'pain-advice': {
+    question: 'Take regular analgaesia as prescribed. If thi is insufficient, please call for advice. \
+    If your symptoms evolve, please call your healthcare team for advice',
+    options: [
+      { answer: 'OK', goto: 'final-message' },
+    ]
+  },
+  'emergency-message': {
+    result: `You are at risk. Go to your nearest Accident and Emergency department. If you can\'t get to the hospital for assessment, call 999.`,
     leaf: true
   },
-  'info-lost-contact': {
-    result: `More information about `,
-    linkText: `lost or denied contact.`,
-    link: `https://www.grandparentsplus.org.uk/what-you-can-do`,
+  'call-message': {
+    result: `You need to call the chemo line for further assessment. Please call 07846464749`,
     leaf: true
   },
-  'info-kc': {
-    result: `More information about being a `,
-    linkText: `Kinship Carer.`,
-    link: `https://www.grandparentsplus.org.uk/advice-and-support`,
+  'final-message': {
+    result: `The self-triage is over. If you are experiencing symptoms that were not mentioned, please contact your healthcare team for advice.`,
     leaf: true
   },
-  'legal-order': {
-    question: 'Do you already have a legal order?',
-    options: [
-      { answer: 'yes', goto: 'order-type' },
-      { answer: 'no/not sure', goto: 'social-services' }
-    ]
-  },
-  'order-type': {
-    question: 'Do you know which type of legal order you have?',
-    options: [
-      { answer: 'yes', goto: 'select-type' },
-      { answer: 'no/not sure', goto: 'complete-form' }
-    ]
-  },
-
-  'select-type': {
-    question: 'Please select the type of legal order below',
-    options: [
-      { answer: 'Special Guardianship Order (SGO)', goto: 'order-link-sgo' },
-      { answer: 'Child Arrangement Order (CAO)', goto: 'order-link-cao' }
-    ]
-  },
-
-  'order-link-sgo': {
-    question: `More information about `,
-    link: `https://www.grandparentsplus.org.uk/local-authority-allowances`,
-    linkText: `legal orders.`,
-    options: [{ answer: 'continue', goto: 'complete-form-1' }]
-  },
-  'order-link-cao': {
-    question: `More information about `,
-    link: `https://www.grandparentsplus.org.uk/local-authority-allowances`,
-    linkText: `legal orders.`,
-    options: [{ answer: 'continue', goto: 'complete-form-1' }]
-  },
-
-  'social-services': {
-    question: 'Did Social Services ask you to provide care for the child?',
-    options: [
-      { answer: 'yes', goto: 'foster-carer' },
-      { answer: 'no', goto: 'informal-arrangement' }
-    ]
-  },
-  'foster-carer': {
-    question: 'Are you a kinship foster carer?',
-    options: [
-      { answer: 'yes', goto: 'complete-form-2' },
-      { answer: 'no/not sure', goto: 'complete-form-2' }
-    ]
-  },
-  'informal-arrangement': {
-    question: 'Did you make an informal arrangement to look after the child?',
-    options: [
-      { answer: 'yes', goto: 'arrangement-link' },
-      { answer: 'no/not sure', goto: 'complete-form-3' }
-    ]
-  },
-  'arrangement-link': {
-    question: `More information about `,
-    link: `https://www.grandparentsplus.org.uk/informal-arrangements`,
-    linkText: `informal arrangements.`,
-    options: [{ answer: 'continue', goto: 'complete-form-4' }]
-  },
-
-  'complete-form': {
-    result: `${formMsg}`,
-    leaf: true
-  },
-  'complete-form-1': {
-    result: `${formMsg}`,
-    leaf: true
-  },
-  'complete-form-2': {
-    result: `${formMsg}`,
-    leaf: true
-  },
-  'complete-form-3': {
-    result: `${formMsg}`,
-    leaf: true
-  },
-  'complete-form-4': {
-    result: `${formMsg}`,
-    leaf: true
-  }
 };
-
 export default wayfinder;
