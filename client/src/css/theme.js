@@ -8,7 +8,7 @@ const gpTheme = {
     blue: '#669dad',
     white: '#FFF',
     graydark: '#575756',
-    graymid: '#b2b2b2',
+    graymid: '#FFFFFF',
     graylight: '#dadada'
   },
   weight: {
