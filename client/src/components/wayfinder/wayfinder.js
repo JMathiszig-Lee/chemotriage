@@ -123,7 +123,7 @@ export default class Wayfinder extends React.Component {
     const formRegex = /complete-form/g;
     return (
       <Wrapper>
-        <Title>My Wayfinder</Title>
+        <Title>CHEMO TRIAGE</Title>
         <QuestionListContainer>
           {this.questionList()}
           <li
