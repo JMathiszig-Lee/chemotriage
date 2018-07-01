@@ -28,7 +28,7 @@ const ButtonStyle = styled.button`
   border-style: none;
   border-radius: 5px;
   font-family: ${props =>
-    props.children.length > 12 ? 'Raleway, Arial, sans-serif' : 'Evenfall'};
+    props.children.length > 12 ? 'Raleway, Arial, sans-serif' : 'Geneva'};
   font-size: ${props => (props.children.length > 12 ? '1.1rem' : '2.8rem')};
   font-weight: ${props =>
     props.children.length > 12 ? props.theme.weight.link : ''};

@@ -14,7 +14,7 @@ const Wrapper = styled.main`
   max-width: 600px;
   min-height: 100vh;
   background-color: ${props => props.theme.color.white};
-  font-family: 'Raleway', 'Arial', sans-serif;
+  font-family: Geneva, Sans-serif;
   font-weight: ${props => props.theme.weight.body};
 `;
 
@@ -24,7 +24,7 @@ const Title = styled.h1`
   text-align: center;
   letter-spacing: 2px;
   font-size: 4rem;
-  font-family: Evenfall, 'Raleway', 'Arial', sans-serif;
+  font-family: Geneva, Sans-serif;
   margin: 3rem 0rem 1rem 0rem;
   @media (max-width: 400px) {
     font-size: 3.4rem;
