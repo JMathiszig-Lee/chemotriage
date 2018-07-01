@@ -2,9 +2,9 @@
 
 const gpTheme = {
   color: {
-    orange: '#ec632f',
-    yellow: '#fdc800',
-    navy: '#1c2243',
+    orange: '#99b6d9',
+    yellow: '#0249A2',
+    navy: '#FFFFFF',
     blue: '#669dad',
     white: '#FFF',
     graydark: '#575756',
@@ -14,7 +14,7 @@ const gpTheme = {
   weight: {
     lead: '900',
     link: '700',
-    body: '600',
+    body: '400',
     light: '400'
   }
 };
