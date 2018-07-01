@@ -9,7 +9,7 @@ const StyledPathLM = styled.div`
   transform: rotate(-10deg);
 `;
 
-    const MidLong = ({ color = '#ec632f' }) => {
+    const MidLong = ({ color = '#99b6D9' }) => {
   return (
     <StyledPathLM>
       <svg

@@ -11,7 +11,7 @@ const StyledPathR = styled.div`
   }
 `;
 
-const RightLong = ({ color = '#ec632f' }) => {
+const RightLong = ({ color = '#99b6D9' }) => {
   return (
     <StyledPathR>
       <svg
